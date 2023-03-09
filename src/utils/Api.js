@@ -29,18 +29,18 @@
       headers: this._headers,
       body: JSON.stringify({
         name: data.name,
-         about: data.description,
+         about: data.about,
       })
     }).then(this._checkResponse);
   }
 
-  newCard(name, link) {
+  newCard(data) {
     return fetch(`${this._baseUrl}/cards`, {
       method: 'POST',
       headers: this._headers,
       body: JSON.stringify({
-        name: name,
-        link: link,
+        name: data.name,
+        link: data.link,
       })
     }).then(this._checkResponse);
   }
@@ -62,18 +62,11 @@
     }).then(this._checkResponse)
   }
 
-  putLike(cardId) {
-    return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
-      method: 'PUT',
-      headers: this._headers
-    }).then(this._checkResponse)
-  }
-
-  deleteLike(cardId) {
-    return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
-      method: 'DELETE',
-      headers: this._headers
-    }).then(this._checkResponse)
+  changeLikeCardStatus(id, isLiked) {
+    return fetch(`${this._baseUrl}/cards/${id}/likes`, {
+      method: `${isLiked ? 'PUT' : 'DELETE'}`,
+      headers: this._headers,
+    }).then(this._checkResponse);
   }
   }
 
